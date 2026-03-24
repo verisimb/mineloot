@@ -56,9 +56,10 @@ async function executeDeploy(roundId) {
     }
 
     try {
-        // Deploy to blocks 11-25 only (15 blocks, higher win rate)
-        const blockIds = Array.from({length: 15}, (_, i) => i + 11);
-        // Total value: 0.00015 ETH (which is 0.00001 ETH per block x 15 blocks)
+        // Deploy to blocks #11-#25 (UI label) = contract IDs 10-24
+        // Note: Mineloot UI is 1-indexed (#1-#25), contract is 0-indexed (0-24)
+        const blockIds = Array.from({length: 15}, (_, i) => i + 10); // IDs: 10,11,...,24
+        // Total value: 0.00015 ETH (0.00001 ETH per block x 15 blocks)
         const txValue = ethers.parseEther("0.00015");
 
         // Cek saldo wallet utama! Butuh sekitar 0.00026 ETH (untuk modal ronde + gas)
@@ -70,7 +71,7 @@ async function executeDeploy(roundId) {
             return;
         }
 
-        logReport(`[INFO] Round ${roundId} | Preparing to deploy 0.00015 ETH to blocks 11-25...`);
+        logReport(`[INFO] Round ${roundId} | Preparing to deploy 0.00015 ETH to blocks #11-#25 (IDs 10-24)...`);
 
         // Send Transaction
         const tx = await gridMining.deploy(blockIds, { value: txValue });
