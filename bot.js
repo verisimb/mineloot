@@ -56,21 +56,21 @@ async function executeDeploy(roundId) {
     }
 
     try {
-        // Deploy to all 25 blocks (0 to 24)
-        const blockIds = Array.from({length: 25}, (_, i) => i);
-        // Total value: 0.00025 ETH (which is 0.00001 ETH per block)
-        const txValue = ethers.parseEther("0.00025");
+        // Deploy to blocks 11-25 only (15 blocks, higher win rate)
+        const blockIds = Array.from({length: 15}, (_, i) => i + 11);
+        // Total value: 0.00015 ETH (which is 0.00001 ETH per block x 15 blocks)
+        const txValue = ethers.parseEther("0.00015");
 
         // Cek saldo wallet utama! Butuh sekitar 0.00026 ETH (untuk modal ronde + gas)
         const balance = await wallet.provider.getBalance(wallet.address);
-        if (balance < ethers.parseEther("0.00026")) {
+        if (balance < ethers.parseEther("0.00016")) {
             logReport(`[WARNING] Saldo dompet asli menipis. Ronde ${roundId} dibatalkan sementara!`);
             logReport(`[FORCE CLAIM] Mencetuskan klaim paksa untuk menambah nafas...`);
             await checkProfit(true);
             return;
         }
 
-        logReport(`[INFO] Round ${roundId} | Preparing to deploy 0.00025 ETH to 25 blocks...`);
+        logReport(`[INFO] Round ${roundId} | Preparing to deploy 0.00015 ETH to blocks 11-25...`);
 
         // Send Transaction
         const tx = await gridMining.deploy(blockIds, { value: txValue });
