@@ -13,3 +13,4 @@ mineloot-latest-report.txt
 # Editor
 .vscode/
 .idea/
+package-lock.json
