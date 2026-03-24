@@ -1,0 +1,15 @@
+# Environment variables — JANGAN pernah di-commit!
+.env
+
+# Dependensi Node.js
+node_modules/
+
+# Log file (terlalu besar dan bersifat lokal)
+mineloot-latest-report.txt
+
+# File sistem macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
